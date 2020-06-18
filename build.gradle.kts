@@ -1,5 +1,6 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.util.Date
 
 plugins {
     kotlin("jvm") version "1.3.72"
@@ -8,13 +9,18 @@ plugins {
     id("com.github.ben-manes.versions") version "0.28.0"
     id("maven-publish")
     id("org.jetbrains.dokka") version "0.10.1"
+    id("com.jfrog.bintray") version "1.8.5"
 }
 
 val javaVersion = JavaVersion.VERSION_1_8.toString()
 
-val groupString = "de.breuco"
-group = groupString
-version = "0.1.0-SNAPSHOT"
+val pomDesc = "A very small boilerplate-free kotlin library to read values " +
+    "from environment variables in a typesafe way"
+val artifactName = "envkeg"
+val artifactGroup = "de.breuco"
+group = artifactGroup
+val artifactVersion = "0.1.0-RC1"
+version = artifactVersion
 
 spotless {
     val ktlintVersion = "0.37.2"
@@ -101,9 +107,9 @@ val sourcesJar by tasks.creating(Jar::class) {
 
 publishing {
     publications {
-        create<MavenPublication>("gpr") {
-            groupId = groupString
-            artifactId = "envkeg"
+        create<MavenPublication>("bintray") {
+            groupId = artifactGroup
+            artifactId = artifactName
             version = version
             from(components["java"])
 
@@ -111,11 +117,8 @@ publishing {
             artifact(dokkaJar)
 
             pom {
-                name.set("envkeg")
-                description.set(
-                    "A very small boilerplate-free kotlin library to read values " +
-                        "from environment variables in a typesafe way"
-                )
+                name.set(artifactName)
+                description.set(pomDesc)
                 url.set("https://github.com/breucode/envkeg")
                 licenses {
                     license {
@@ -131,15 +134,24 @@ publishing {
             }
         }
     }
+}
 
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/breucode/envkeg")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
+bintray {
+    user = System.getenv("BINTRAY_USER")
+    key = System.getenv("BINTRAY_KEY")
+    setPublications("bintray")
+
+    pkg.apply {
+        repo = "breucode"
+        name = artifactName
+        userOrg = "breucode"
+        setLicenses("MIT")
+        vcsUrl = "https://github.com/breucode/envkeg.git"
+        version.apply {
+            name = artifactVersion
+            desc = pomDesc
+            released = Date().toString()
+            vcsTag = artifactVersion
         }
     }
 }
