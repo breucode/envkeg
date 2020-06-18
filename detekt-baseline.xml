@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <Blacklist></Blacklist>
+  <Whitelist>
+    <ID>TooGenericExceptionCaught:Envkeg.kt$Envkeg.Companion$e: Throwable</ID>
+  </Whitelist>
+</SmellBaseline>
