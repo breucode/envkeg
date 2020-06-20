@@ -6,15 +6,27 @@ class Envkeg private constructor() {
          * Reads, parses and returns an environment variable based on the type of <code>default</code>
          *
          * @param name the name of the environment variable to read from
-         * @param default the default value, which will be returned, if the environment variable is not
-         * present or cannot be parsed. The type of <code>default</code> determines the return type
+         * @param default the default value, which will be returned
+         * The type of <code>default</code> determines the return type
          *
-         * @return the parsed environment variable or the default
+         * @return the parsed environment variable or the default, if the environment variable is
+         * not present or cannot be parsed
          */
         inline fun <reified R> getFromEnvTyped(name: String, default: R): R {
+            return getFromEnvTyped<R>(name) ?: default
+        }
+
+        /**
+         * Reads, parses and returns an environment variable based on type R
+         *
+         * @param name the name of the environment variable to read from
+         *
+         * @return the parsed environment variable or null, if the environment variable is not
+         * present or cannot be parsed
+         */
+        inline fun <reified R> getFromEnvTyped(name: String): R? {
             return try {
-                val envVar: String? = System.getenv(name)
-                checkNotNull(envVar)
+                val envVar: String = System.getenv(name) ?: return null
 
                 when (R::class) {
                     Byte::class -> envVar.toByte() as R
@@ -30,7 +42,7 @@ class Envkeg private constructor() {
                     else -> error("Unsupported type")
                 }
             } catch (e: Throwable) {
-                default
+                null
             }
         }
     }

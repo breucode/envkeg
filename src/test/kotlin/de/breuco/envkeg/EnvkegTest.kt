@@ -1,6 +1,7 @@
 package de.breuco.envkeg
 
 import io.kotest.matchers.doubles.shouldBeExactly
+import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeTypeOf
 import io.mockk.clearAllMocks
@@ -117,12 +118,21 @@ class EnvkegTest {
         val envVarName = "stringVar"
         val envVarValue = "helloWorld"
         val default = "defaultValue"
-        mockEnvVariable(envVarName, envVarValue.toString())
+        mockEnvVariable(envVarName, envVarValue)
 
         val result = Envkeg.getFromEnvTyped(envVarName, default)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<String>()
+    }
+
+    @Test
+    fun readNullableStringNotPresent() {
+        val envVarName = "stringVar"
+
+        val result: String? = Envkeg.getFromEnvTyped(envVarName)
+
+        result.shouldBeNull()
     }
 
     @Test
