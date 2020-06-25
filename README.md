@@ -43,7 +43,7 @@ repositories {
 
 dependencies {
     ...
-    implementation("de.breuco:envkeg:0.2.0")
+    implementation("de.breuco:envkeg:0.3.0")
     ...
 }
 ```
@@ -68,7 +68,7 @@ dependencies {
         <dependency>
             <groupId>de.breuco</groupId>
             <artifactId>envkeg</artifactId>
-            <version>0.2.0</version>
+            <version>0.3.0</version>
         </dependency>
     </dependencies>
     ...
