@@ -9,6 +9,12 @@ import io.mockk.every
 import io.mockk.mockkStatic
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
+import java.time.OffsetTime
+import java.time.ZonedDateTime
 
 class EnvkegTest {
 
@@ -235,5 +241,83 @@ class EnvkegTest {
 
         result shouldBe default
         result.shouldBeTypeOf<UnsupportedTypeForTesting>()
+    }
+
+    @Test
+    fun localDateType() {
+        val envVarName = "localDateVar"
+        val envVarValue = LocalDate.now()
+
+        mockEnvVariable(envVarName, envVarValue.toString())
+
+        val result = Envkeg.getFromEnvTyped<LocalDate>(envVarName)
+
+        result shouldBe envVarValue
+        result.shouldBeTypeOf<LocalDate>()
+    }
+
+    @Test
+    fun localDateTimeType() {
+        val envVarName = "localDateTimeVar"
+        val envVarValue = LocalDateTime.now()
+
+        mockEnvVariable(envVarName, envVarValue.toString())
+
+        val result = Envkeg.getFromEnvTyped<LocalDateTime>(envVarName)
+
+        result shouldBe envVarValue
+        result.shouldBeTypeOf<LocalDateTime>()
+    }
+
+    @Test
+    fun offsetTimeType() {
+        val envVarName = "offsetTimeVar"
+        val envVarValue = OffsetTime.now()
+
+        mockEnvVariable(envVarName, envVarValue.toString())
+
+        val result = Envkeg.getFromEnvTyped<OffsetTime>(envVarName)
+
+        result shouldBe envVarValue
+        result.shouldBeTypeOf<OffsetTime>()
+    }
+
+    @Test
+    fun offsetDateTimeType() {
+        val envVarName = "offsetDateTimeVar"
+        val envVarValue = OffsetDateTime.now()
+
+        mockEnvVariable(envVarName, envVarValue.toString())
+
+        val result = Envkeg.getFromEnvTyped<OffsetDateTime>(envVarName)
+
+        result shouldBe envVarValue
+        result.shouldBeTypeOf<OffsetDateTime>()
+    }
+
+    @Test
+    fun zonedDateTimeType() {
+        val envVarName = "zonedDateTimeVar"
+        val envVarValue = ZonedDateTime.now()
+
+        mockEnvVariable(envVarName, envVarValue.toString())
+
+        val result = Envkeg.getFromEnvTyped<ZonedDateTime>(envVarName)
+
+        result shouldBe envVarValue
+        result.shouldBeTypeOf<ZonedDateTime>()
+    }
+
+    @Test
+    fun instantType() {
+        val envVarName = "instantVar"
+        val envVarValue = Instant.now()
+
+        mockEnvVariable(envVarName, envVarValue.toString())
+
+        val result = Envkeg.getFromEnvTyped<Instant>(envVarName)
+
+        result shouldBe envVarValue
+        result.shouldBeTypeOf<Instant>()
     }
 }

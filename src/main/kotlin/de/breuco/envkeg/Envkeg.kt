@@ -1,9 +1,16 @@
 package de.breuco.envkeg
 
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
+import java.time.OffsetTime
+import java.time.ZonedDateTime
+
 class Envkeg private constructor() {
     companion object {
         /**
-         * Reads, parses and returns an environment variable based on the type of <code>default</code>
+         * Reads and returns an environment variable based on the type of <code>default</code>
          *
          * @param name the name of the environment variable to read from
          * @param default the default value, which will be returned
@@ -17,7 +24,7 @@ class Envkeg private constructor() {
         }
 
         /**
-         * Reads, parses and returns an environment variable based on type R
+         * Reads and returns an environment variable based on type R
          *
          * @param name the name of the environment variable to read from
          *
@@ -25,21 +32,73 @@ class Envkeg private constructor() {
          * present or cannot be parsed
          */
         inline fun <reified R> getFromEnvTyped(name: String): R? {
+            val envVar: String = System.getenv(name) ?: return null
+
+            return convertToType(envVar)
+        }
+
+        /**
+         * Reads and returns an environment variable as a List<R>
+         *
+         *
+         * @param name the name of the environment variable to read from
+         *
+         * @return the values of the environment variable split by ',' (comma)
+         */
+        inline fun <reified R : Any> getFromEnvTypedList(name: String): List<R> {
+            return getFromEnvTypedList(name, ',')
+        }
+
+        /**
+         * Reads and returns an environment variable as a List<R>
+         *
+         *
+         * @param name the name of the environment variable to read from
+         * @param separator the separator which splits the values of the environment variable
+         *
+         * @return the values of the environment variable split by <code>separator</code>
+         */
+        inline fun <reified R : Any> getFromEnvTypedList(name: String, separator: Char): List<R> {
+            val envVar: String = System.getenv(name) ?: return emptyList()
+
+            return envVar.split(separator)
+                .map { it.trim() }
+                .filter { it.isNotBlank() }
+                .mapNotNull {
+                    val parsedIt: R? = convertToType(it)
+                    parsedIt
+                }
+        }
+
+        /**
+         * Converts the <code>value</code> String to an R?
+         *
+         * @param value the value to convert
+         *
+         * @return value as an R or null, if the target type is not supported or can't be parsed
+         */
+        inline fun <reified R> convertToType(value: String): R? {
             return try {
-                val envVar: String = System.getenv(name) ?: return null
-
                 when (R::class) {
-                    Byte::class -> envVar.toByte() as R
-                    Short::class -> envVar.toShort() as R
-                    Int::class -> envVar.toInt() as R
-                    Long::class -> envVar.toLong() as R
+                    Byte::class -> value.toByte() as R
+                    Short::class -> value.toShort() as R
+                    Int::class -> value.toInt() as R
+                    Long::class -> value.toLong() as R
 
-                    Float::class -> envVar.toFloat() as R
-                    Double::class -> envVar.toDouble() as R
+                    Float::class -> value.toFloat() as R
+                    Double::class -> value.toDouble() as R
 
-                    Boolean::class -> envVar.toBoolean() as R
-                    String::class -> envVar as R
-                    else -> error("Unsupported type")
+                    Boolean::class -> value.toBoolean() as R
+                    String::class -> value as R
+
+                    LocalDate::class -> LocalDate.parse(value) as R
+                    LocalDateTime::class -> LocalDateTime.parse(value) as R
+                    OffsetTime::class -> OffsetTime.parse(value) as R
+                    OffsetDateTime::class -> OffsetDateTime.parse(value) as R
+                    ZonedDateTime::class -> ZonedDateTime.parse(value) as R
+                    Instant::class -> Instant.parse(value) as R
+
+                    else -> null
                 }
             } catch (e: Throwable) {
                 null

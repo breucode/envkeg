@@ -2,6 +2,7 @@
 <SmellBaseline>
   <Blacklist></Blacklist>
   <Whitelist>
+    <ID>ComplexMethod:Envkeg.kt$Envkeg.Companion$convertToType</ID>
     <ID>TooGenericExceptionCaught:Envkeg.kt$Envkeg.Companion$e: Throwable</ID>
   </Whitelist>
 </SmellBaseline>
