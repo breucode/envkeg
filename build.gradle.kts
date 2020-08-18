@@ -1,12 +1,13 @@
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.util.Date
 
 plugins {
     kotlin("jvm") version "1.3.72"
-    id("com.diffplug.gradle.spotless") version "4.3.1"
-    id("io.gitlab.arturbosch.detekt") version "1.9.1"
-    id("com.github.ben-manes.versions") version "0.28.0"
+    id("com.diffplug.spotless") version "5.1.1"
+    id("io.gitlab.arturbosch.detekt") version "1.11.0"
+    id("com.github.ben-manes.versions") version "0.29.0"
     id("maven-publish")
     id("org.jetbrains.dokka") version "0.10.1"
     id("com.jfrog.bintray") version "1.8.5"
@@ -55,6 +56,22 @@ tasks {
     }
 }
 
+fun isNonStable(version: String): Boolean {
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
+    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
+    val isStable = stableKeyword || regex.matches(version)
+    return isStable.not()
+}
+
+tasks.named("dependencyUpdates", DependencyUpdatesTask::class.java).configure {
+    rejectVersionIf {
+        isNonStable(candidate.version)
+    }
+
+    revision = "release"
+    gradleReleaseChannel = "current"
+}
+
 tasks.wrapper {
     distributionType = Wrapper.DistributionType.ALL
 }
@@ -72,7 +89,7 @@ dependencies {
     }
     testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-arrow-jvm:$kotestVersion")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
 
     testImplementation("io.mockk:mockk:1.10.0")
     implementation(kotlin("stdlib-jdk8"))
