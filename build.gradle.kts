@@ -98,13 +98,10 @@ tasks.test {
     useJUnitPlatform()
 }
 
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = javaVersion
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = javaVersion
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = javaVersion
+    }
 }
 
 val dokkaJar by tasks.creating(Jar::class) {
