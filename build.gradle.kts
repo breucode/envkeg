@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.util.Date
 
 plugins {
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version "1.4.0"
     id("com.diffplug.spotless") version "5.1.1"
     id("io.gitlab.arturbosch.detekt") version "1.11.0"
     id("com.github.ben-manes.versions") version "0.29.0"
@@ -82,7 +82,7 @@ repositories {
 }
 
 dependencies {
-    val kotestVersion = "4.0.6"
+    val kotestVersion = "4.2.0.RC2"
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion") {
         exclude("junit")
         exclude("org.junit.vintage")
@@ -92,7 +92,6 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
 
     testImplementation("io.mockk:mockk:1.10.0")
-    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.test {
