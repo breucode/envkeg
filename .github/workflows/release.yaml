@@ -10,7 +10,7 @@ jobs:
       - uses: gradle/wrapper-validation-action@v1
       - uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 8
       - name: Check before publish
         run: ./gradlew check
       - name: Publish package
