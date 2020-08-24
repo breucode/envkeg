@@ -20,15 +20,15 @@ If the variable is not present, can't be parsed or the target type is not suppor
 the second case.
 
 ### Lists
-You can also convert an environment variable to a `List`.
+You can also convert an environment variable to a `List`. Let's say the variable is named `myIntList` and the content is `"1,2,3"`.
 
 ```kotlin
-val intList: List<Int> = Envkeg.getFromEnvTypedList("1,2,3")
+val intList: List<Int> = Envkeg.getFromEnvTypedList("myIntList")
 ```
 
 returns a `List<Int>` of `[1,2,3]`.
 
-You can also define your own separator by calling for example `Envkeg.getFromEnvTypedList("1;2;3", ';')`.
+You can also define your own separator by calling for example `Envkeg.getFromEnvTypedList("myOtherIntList", ';')`.
 
 ## Install dependency
 This dependency is available at jcenter.

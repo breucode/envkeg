@@ -100,7 +100,7 @@ class Envkeg private constructor() {
 
                     else -> null
                 }
-            } catch (e: Throwable) {
+            } catch (e: Exception) {
                 null
             }
         }

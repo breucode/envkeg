@@ -3,6 +3,6 @@
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
     <ID>ComplexMethod:Envkeg.kt$Envkeg.Companion$ inline fun &lt;reified R&gt; convertToType(value: String): R?</ID>
-    <ID>TooGenericExceptionCaught:Envkeg.kt$Envkeg.Companion$e: Throwable</ID>
+    <ID>TooGenericExceptionCaught:Envkeg.kt$Envkeg.Companion$e: Exception</ID>
   </CurrentIssues>
 </SmellBaseline>
