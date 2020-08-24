@@ -1,18 +1,19 @@
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.util.Date
 
 plugins {
-    kotlin("jvm") version "1.3.72"
-    id("com.diffplug.gradle.spotless") version "4.3.1"
-    id("io.gitlab.arturbosch.detekt") version "1.9.1"
-    id("com.github.ben-manes.versions") version "0.28.0"
+    kotlin("jvm") version "1.4.0"
+    id("com.diffplug.spotless") version "5.1.2"
+    id("io.gitlab.arturbosch.detekt") version "1.11.2"
+    id("com.github.ben-manes.versions") version "0.29.0"
     id("maven-publish")
     id("org.jetbrains.dokka") version "0.10.1"
     id("com.jfrog.bintray") version "1.8.5"
 }
 
-val javaVersion = JavaVersion.VERSION_1_8.toString()
+val javaVersion = JavaVersion.VERSION_1_8
 
 val pomDesc = "A very small boilerplate-free kotlin library to read values " +
     "from environment variables in a typesafe way"
@@ -23,7 +24,7 @@ val artifactVersion = "0.3.0"
 version = artifactVersion
 
 spotless {
-    val ktlintVersion = "0.37.2"
+    val ktlintVersion = "0.38.0"
     kotlin {
         ktlint(ktlintVersion).userData(
             mapOf(
@@ -51,8 +52,24 @@ detekt {
 
 tasks {
     withType<Detekt> {
-        this.jvmTarget = javaVersion
+        this.jvmTarget = javaVersion.toString()
     }
+}
+
+fun isNonStable(version: String): Boolean {
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
+    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
+    val isStable = stableKeyword || regex.matches(version)
+    return isStable.not()
+}
+
+tasks.named("dependencyUpdates", DependencyUpdatesTask::class.java).configure {
+    rejectVersionIf {
+        isNonStable(candidate.version)
+    }
+
+    revision = "release"
+    gradleReleaseChannel = "current"
 }
 
 tasks.wrapper {
@@ -65,17 +82,16 @@ repositories {
 }
 
 dependencies {
-    val kotestVersion = "4.0.6"
+    val kotestVersion = "4.2.0"
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion") {
         exclude("junit")
         exclude("org.junit.vintage")
     }
     testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-arrow-jvm:$kotestVersion")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
 
     testImplementation("io.mockk:mockk:1.10.0")
-    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.test {
@@ -83,12 +99,14 @@ tasks.test {
 }
 
 val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = javaVersion
-}
+compileKotlin.kotlinOptions.jvmTarget = javaVersion.toString()
+
 val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = javaVersion
+compileTestKotlin.kotlinOptions.jvmTarget = javaVersion.toString()
+
+java {
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
 }
 
 val dokkaJar by tasks.creating(Jar::class) {
