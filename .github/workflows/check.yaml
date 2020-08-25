@@ -3,9 +3,9 @@ name: Build and test
 on:
   push:
     branches:
-      - '*'
+      - '**'
     tags-ignore:
-      - '*'
+      - '**'
 
 jobs:
   check:
