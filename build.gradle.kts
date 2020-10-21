@@ -4,12 +4,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.util.Date
 
 plugins {
-    kotlin("jvm") version "1.4.0"
-    id("com.diffplug.spotless") version "5.1.2"
-    id("io.gitlab.arturbosch.detekt") version "1.11.2"
-    id("com.github.ben-manes.versions") version "0.29.0"
+    kotlin("jvm") version "1.4.10"
+    id("com.diffplug.spotless") version "5.7.0"
+    id("io.gitlab.arturbosch.detekt") version "1.14.2"
+    id("com.github.ben-manes.versions") version "0.33.0"
     id("maven-publish")
-    id("org.jetbrains.dokka") version "0.10.1"
+    id("org.jetbrains.dokka") version "1.4.10.2"
     id("com.jfrog.bintray") version "1.8.5"
 }
 
@@ -24,22 +24,14 @@ val artifactVersion = "0.4.0"
 version = artifactVersion
 
 spotless {
-    val ktlintVersion = "0.38.0"
+    val ktlintVersion = "0.39.0"
     kotlin {
-        ktlint(ktlintVersion).userData(
-            mapOf(
-                Pair("max_line_length", "120")
-            )
-        )
+        ktlint(ktlintVersion)
     }
     kotlinGradle {
         target("*.gradle.kts")
 
-        ktlint(ktlintVersion).userData(
-            mapOf(
-                Pair("max_line_length", "120")
-            )
-        )
+        ktlint(ktlintVersion)
     }
 }
 
@@ -82,14 +74,14 @@ repositories {
 }
 
 dependencies {
-    val kotestVersion = "4.2.0"
+    val kotestVersion = "4.3.0"
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion") {
         exclude("junit")
         exclude("org.junit.vintage")
     }
     testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-arrow-jvm:$kotestVersion")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
 
     testImplementation("io.mockk:mockk:1.10.0")
 }
@@ -113,7 +105,7 @@ val dokkaJar by tasks.creating(Jar::class) {
     group = JavaBasePlugin.DOCUMENTATION_GROUP
     description = "Assembles Kotlin docs with Dokka"
     archiveClassifier.set("javadoc")
-    from(tasks.dokka)
+    from(tasks.dokkaJavadoc)
 }
 
 val sourcesJar by tasks.creating(Jar::class) {
