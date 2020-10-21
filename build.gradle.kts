@@ -86,6 +86,10 @@ dependencies {
     testImplementation("io.mockk:mockk:1.10.0")
 }
 
+kotlin {
+    explicitApi()
+}
+
 tasks.test {
     useJUnitPlatform()
 }
