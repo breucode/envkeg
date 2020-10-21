@@ -1,8 +1,8 @@
-<?xml version="1.0" ?>
+<?xml version='1.0' encoding='UTF-8'?>
 <SmellBaseline>
-  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>ComplexMethod:Envkeg.kt$Envkeg.Companion$ inline fun &lt;reified R&gt; convertToType(value: String): R?</ID>
+    <ID>ComplexMethod:Envkeg.kt$Envkeg.Companion$ public inline fun &lt;reified R> convertToType(value: String): R?</ID>
     <ID>TooGenericExceptionCaught:Envkeg.kt$Envkeg.Companion$e: Exception</ID>
   </CurrentIssues>
 </SmellBaseline>

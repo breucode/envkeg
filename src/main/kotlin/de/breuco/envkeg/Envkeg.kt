@@ -7,8 +7,8 @@ import java.time.OffsetDateTime
 import java.time.OffsetTime
 import java.time.ZonedDateTime
 
-class Envkeg private constructor() {
-    companion object {
+public class Envkeg private constructor() {
+    public companion object {
         /**
          * Reads and returns an environment variable based on the type of <code>default</code>
          *
@@ -19,7 +19,7 @@ class Envkeg private constructor() {
          * @return the parsed environment variable or the default, if the environment variable is
          * not present or cannot be parsed
          */
-        inline fun <reified R> getFromEnvTyped(name: String, default: R): R {
+        public inline fun <reified R> getFromEnvTyped(name: String, default: R): R {
             return getFromEnvTyped<R>(name) ?: default
         }
 
@@ -31,7 +31,7 @@ class Envkeg private constructor() {
          * @return the parsed environment variable or null, if the environment variable is not
          * present or cannot be parsed
          */
-        inline fun <reified R> getFromEnvTyped(name: String): R? {
+        public inline fun <reified R> getFromEnvTyped(name: String): R? {
             val envVar: String = System.getenv(name) ?: return null
 
             return convertToType(envVar)
@@ -45,7 +45,7 @@ class Envkeg private constructor() {
          *
          * @return the values of the environment variable split by ',' (comma)
          */
-        inline fun <reified R : Any> getFromEnvTypedList(name: String): List<R> {
+        public inline fun <reified R : Any> getFromEnvTypedList(name: String): List<R> {
             return getFromEnvTypedList(name, ',')
         }
 
@@ -58,7 +58,7 @@ class Envkeg private constructor() {
          *
          * @return the values of the environment variable split by <code>separator</code>
          */
-        inline fun <reified R : Any> getFromEnvTypedList(name: String, separator: Char): List<R> {
+        public inline fun <reified R : Any> getFromEnvTypedList(name: String, separator: Char): List<R> {
             val envVar: String = System.getenv(name) ?: return emptyList()
 
             return envVar.split(separator)
@@ -77,7 +77,7 @@ class Envkeg private constructor() {
          *
          * @return value as an R or null, if the target type is not supported or can't be parsed
          */
-        inline fun <reified R> convertToType(value: String): R? {
+        public inline fun <reified R> convertToType(value: String): R? {
             return try {
                 when (R::class) {
                     Byte::class -> value.toByte() as R
