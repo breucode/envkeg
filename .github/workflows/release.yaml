@@ -14,7 +14,7 @@ jobs:
       - name: Check before publish
         run: ./gradlew check
       - name: Publish package
-        run: ./gradlew bintrayUpload
+        run: ./gradlew publish
         env:
           BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
           BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}

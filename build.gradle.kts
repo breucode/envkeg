@@ -1,7 +1,6 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.util.Date
 
 plugins {
     kotlin("jvm") version "1.4.10"
@@ -10,7 +9,6 @@ plugins {
     id("com.github.ben-manes.versions") version "0.33.0"
     id("maven-publish")
     id("org.jetbrains.dokka") version "1.4.10.2"
-    id("com.jfrog.bintray") version "1.8.5"
 }
 
 val javaVersion = JavaVersion.VERSION_1_8
@@ -20,7 +18,7 @@ val pomDesc = "A very small boilerplate-free kotlin library to read values " +
 val artifactName = "envkeg"
 val artifactGroup = "de.breuco"
 group = artifactGroup
-val artifactVersion = "0.4.0"
+val artifactVersion = "0.4.1"
 version = artifactVersion
 
 spotless {
@@ -143,29 +141,24 @@ publishing {
                 developers {
                     developer {
                         id.set("breucode")
+                        name.set("Pascal Breuer")
+                        email.set("pbreuer@breuco.de")
                     }
+                }
+                scm {
+                    url.set("https://github.com/breucode/envkeg.git")
                 }
             }
         }
     }
-}
 
-bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_KEY")
-    setPublications("bintray")
-
-    pkg.apply {
-        repo = "breucode"
-        name = artifactName
-        userOrg = "breucode"
-        setLicenses("MIT")
-        vcsUrl = "https://github.com/breucode/envkeg.git"
-        version.apply {
-            name = artifactVersion
-            desc = pomDesc
-            released = Date().toString()
-            vcsTag = artifactVersion
+    repositories {
+        maven {
+            url = uri("https://api.bintray.com/maven/breucode/breucode/envkeg")
+            credentials {
+                username = System.getenv("BINTRAY_USER")
+                password = System.getenv("BINTRAY_KEY")
+            }
         }
     }
 }
