@@ -1,3 +1,7 @@
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/breucode/envkeg?style=flat-square)](https://github.com/breucode/envkeg/releases)
+[![License](dependencies-badge.svg)](build.gradle.kts)
+[![License](https://img.shields.io/github/license/breucode/envkeg?style=flat-square)](LICENSE)
+
 # envkeg
 A very small boilerplate-free kotlin library to read values from environment variables in a typesafe way.
 
@@ -6,13 +10,13 @@ A very small boilerplate-free kotlin library to read values from environment var
 To read an environment variable simply call:
 
 ```kotlin
-Envkeg.getFromEnvTyped("myEnvInt", 30)
+parseFromEnv("myEnvInt", 30)
 ```
 
 to get `myEnvInt` from the environment as an `Int` or
 
 ```kotlin
-val nullableInt: Int? = Envkeg.getFromEnvTyped("myNullableEnvInt")
+val nullableInt: Int? = parseFromEnv("myNullableEnvInt")
 ```
 to get `myNullableEnvInt` from the environment as an `Int?`.
 
@@ -23,12 +27,12 @@ the second case.
 You can also convert an environment variable to a `List`. Let's say the variable is named `myIntList` and the content is `"1,2,3"`.
 
 ```kotlin
-val intList: List<Int> = Envkeg.getFromEnvTypedList("myIntList")
+val intList: List<Int> = parseFromEnv("myIntList")
 ```
 
 returns a `List<Int>` of `[1,2,3]`.
 
-You can also define your own separator by calling for example `Envkeg.getFromEnvTypedList("myOtherIntList", ';')`.
+You can also define your own separator by calling for example `parseListFromEnv("myOtherIntList", ';')`.
 
 ## Install dependency
 This dependency is available at jcenter.
