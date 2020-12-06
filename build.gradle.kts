@@ -18,7 +18,7 @@ val pomDesc = "A very small boilerplate-free kotlin library to read values " +
 val artifactName = "envkeg"
 val artifactGroup = "de.breuco"
 group = artifactGroup
-val artifactVersion = "0.4.1"
+val artifactVersion = "0.5.0"
 version = artifactVersion
 
 spotless {
