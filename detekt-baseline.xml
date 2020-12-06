@@ -2,7 +2,7 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>ComplexMethod:Envkeg.kt$Envkeg.Companion$ public inline fun &lt;reified R> convertToType(value: String): R?</ID>
-    <ID>TooGenericExceptionCaught:Envkeg.kt$Envkeg.Companion$e: Exception</ID>
+    <ID>ComplexMethod:Envkeg.kt$ public inline fun &lt;reified R> convertToType(value: String): R?</ID>
+    <ID>TooGenericExceptionCaught:Envkeg.kt$e: Exception</ID>
   </CurrentIssues>
 </SmellBaseline>
