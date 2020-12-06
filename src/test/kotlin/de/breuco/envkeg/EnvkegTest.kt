@@ -35,7 +35,7 @@ class EnvkegTest {
         val default: Byte = 3
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<Byte>()
@@ -48,7 +48,7 @@ class EnvkegTest {
         val default: Short = 3
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<Short>()
@@ -61,7 +61,7 @@ class EnvkegTest {
         val default = 3
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<Int>()
@@ -74,7 +74,7 @@ class EnvkegTest {
         val default = 3L
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<Long>()
@@ -87,7 +87,7 @@ class EnvkegTest {
         val default = 3.0f
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<Float>()
@@ -100,7 +100,7 @@ class EnvkegTest {
         val default = 3.0
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBeExactly envVarValue
         result.shouldBeTypeOf<Double>()
@@ -113,7 +113,7 @@ class EnvkegTest {
         val default = false
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<Boolean>()
@@ -126,7 +126,7 @@ class EnvkegTest {
         val default = "defaultValue"
         mockEnvVariable(envVarName, envVarValue)
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<String>()
@@ -136,7 +136,7 @@ class EnvkegTest {
     fun readNullableStringNotPresent() {
         val envVarName = "stringVar"
 
-        val result: String? = Envkeg.getFromEnvTyped(envVarName)
+        val result: String? = parseFromEnv(envVarName)
 
         result.shouldBeNull()
     }
@@ -146,7 +146,7 @@ class EnvkegTest {
         val envVarName = "byteVarNotPresent"
         val default: Byte = 3
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe default
         result.shouldBeTypeOf<Byte>()
@@ -157,7 +157,7 @@ class EnvkegTest {
         val envVarName = "shortVarNotPresent"
         val default: Short = 3
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe default
         result.shouldBeTypeOf<Short>()
@@ -168,7 +168,7 @@ class EnvkegTest {
         val envVarName = "intVarNotPresent"
         val default = 3
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe default
         result.shouldBeTypeOf<Int>()
@@ -179,7 +179,7 @@ class EnvkegTest {
         val envVarName = "longVarNotPresent"
         val default = 3L
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe default
         result.shouldBeTypeOf<Long>()
@@ -190,7 +190,7 @@ class EnvkegTest {
         val envVarName = "floatVarNotPresent"
         val default = 3.0f
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe default
         result.shouldBeTypeOf<Float>()
@@ -201,7 +201,7 @@ class EnvkegTest {
         val envVarName = "doubleVarNotPresent"
         val default = 3.0
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBeExactly default
         result.shouldBeTypeOf<Double>()
@@ -212,7 +212,7 @@ class EnvkegTest {
         val envVarName = "booleanVarNotPresent"
         val default = false
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe default
         result.shouldBeTypeOf<Boolean>()
@@ -223,7 +223,7 @@ class EnvkegTest {
         val envVarName = "stringVarNotPresent"
         val default = "defaultValue"
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe default
         result.shouldBeTypeOf<String>()
@@ -237,7 +237,7 @@ class EnvkegTest {
 
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped(envVarName, default)
+        val result = parseFromEnv(envVarName, default)
 
         result shouldBe default
         result.shouldBeTypeOf<UnsupportedTypeForTesting>()
@@ -250,7 +250,7 @@ class EnvkegTest {
 
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped<LocalDate>(envVarName)
+        val result = parseFromEnv<LocalDate>(envVarName)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<LocalDate>()
@@ -263,7 +263,7 @@ class EnvkegTest {
 
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped<LocalDateTime>(envVarName)
+        val result = parseFromEnv<LocalDateTime>(envVarName)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<LocalDateTime>()
@@ -276,7 +276,7 @@ class EnvkegTest {
 
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped<OffsetTime>(envVarName)
+        val result = parseFromEnv<OffsetTime>(envVarName)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<OffsetTime>()
@@ -289,7 +289,7 @@ class EnvkegTest {
 
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped<OffsetDateTime>(envVarName)
+        val result = parseFromEnv<OffsetDateTime>(envVarName)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<OffsetDateTime>()
@@ -302,7 +302,7 @@ class EnvkegTest {
 
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped<ZonedDateTime>(envVarName)
+        val result = parseFromEnv<ZonedDateTime>(envVarName)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<ZonedDateTime>()
@@ -315,7 +315,7 @@ class EnvkegTest {
 
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result = Envkeg.getFromEnvTyped<Instant>(envVarName)
+        val result = parseFromEnv<Instant>(envVarName)
 
         result shouldBe envVarValue
         result.shouldBeTypeOf<Instant>()

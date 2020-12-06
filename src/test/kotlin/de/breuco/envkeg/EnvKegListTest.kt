@@ -28,7 +28,7 @@ class EnvKegListTest {
         val envVarValue: Int = Random.nextInt()
         mockEnvVariable(envVarName, envVarValue.toString())
 
-        val result: List<Int> = Envkeg.getFromEnvTypedList(envVarName)
+        val result: List<Int> = parseListFromEnv(envVarName)
 
         result shouldHaveSize 1
         result[0] shouldBe envVarValue
@@ -40,7 +40,7 @@ class EnvKegListTest {
         val envVarName = "emptyIntListVar"
         mockEnvVariable(envVarName, "")
 
-        val result: List<Int> = Envkeg.getFromEnvTypedList(envVarName)
+        val result: List<Int> = parseListFromEnv(envVarName)
 
         result shouldHaveSize 0
     }
@@ -53,7 +53,7 @@ class EnvKegListTest {
         val envVarName = "multipleIntListVar"
         mockEnvVariable(envVarName, values.joinToString())
 
-        val result: List<Int> = Envkeg.getFromEnvTypedList(envVarName)
+        val result: List<Int> = parseListFromEnv(envVarName)
 
         result shouldHaveSize values.size
         result shouldContainInOrder values
@@ -65,7 +65,7 @@ class EnvKegListTest {
         val envVarName = "brokenIntListVar"
         mockEnvVariable(envVarName, "1,2,whatsup,4")
 
-        val result: List<Int> = Envkeg.getFromEnvTypedList(envVarName)
+        val result: List<Int> = parseListFromEnv(envVarName)
 
         result shouldHaveSize values.size
         result shouldContainInOrder values
@@ -77,7 +77,7 @@ class EnvKegListTest {
         val envVarName = "emptyItemsInIntListVar"
         mockEnvVariable(envVarName, "1,2,,4")
 
-        val result: List<Int> = Envkeg.getFromEnvTypedList(envVarName)
+        val result: List<Int> = parseListFromEnv(envVarName)
 
         result shouldHaveSize values.size
         result shouldContainInOrder values
