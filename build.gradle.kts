@@ -3,12 +3,12 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.10"
-    id("com.diffplug.spotless") version "5.7.0"
+    kotlin("jvm") version "1.4.20"
+    id("com.diffplug.spotless") version "5.8.2"
     id("io.gitlab.arturbosch.detekt") version "1.14.2"
-    id("com.github.ben-manes.versions") version "0.33.0"
+    id("com.github.ben-manes.versions") version "0.36.0"
     id("maven-publish")
-    id("org.jetbrains.dokka") version "1.4.10.2"
+    id("org.jetbrains.dokka") version "1.4.20"
 }
 
 val javaVersion = JavaVersion.VERSION_1_8
@@ -22,7 +22,7 @@ val artifactVersion = "0.4.1"
 version = artifactVersion
 
 spotless {
-    val ktlintVersion = "0.39.0"
+    val ktlintVersion = "0.40.0"
     kotlin {
         ktlint(ktlintVersion)
     }
@@ -72,7 +72,7 @@ repositories {
 }
 
 dependencies {
-    val kotestVersion = "4.3.0"
+    val kotestVersion = "4.3.1"
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion") {
         exclude("junit")
         exclude("org.junit.vintage")
