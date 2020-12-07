@@ -27,7 +27,7 @@ the second case.
 You can also convert an environment variable to a `List`. Let's say the variable is named `myIntList` and the content is `"1,2,3"`.
 
 ```kotlin
-val intList: List<Int> = parseFromEnv("myIntList")
+val intList: List<Int> = parseListFromEnv("myIntList")
 ```
 
 returns a `List<Int>` of `[1,2,3]`.
