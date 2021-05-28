@@ -7,8 +7,10 @@ plugins {
     id("com.diffplug.spotless") version "5.8.2"
     id("io.gitlab.arturbosch.detekt") version "1.14.2"
     id("com.github.ben-manes.versions") version "0.36.0"
-    id("maven-publish")
     id("org.jetbrains.dokka") version "1.4.20"
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+    id("maven-publish")
+    id("signing")
 }
 
 val javaVersion = JavaVersion.VERSION_1_8
@@ -18,7 +20,7 @@ val pomDesc = "A very small boilerplate-free kotlin library to read values " +
 val artifactName = "envkeg"
 val artifactGroup = "de.breuco"
 group = artifactGroup
-val artifactVersion = "0.5.0"
+val artifactVersion = "0.5.0.1"
 version = artifactVersion
 
 spotless {
@@ -117,48 +119,58 @@ val sourcesJar by tasks.creating(Jar::class) {
     from(sourceSets["main"].allSource)
 }
 
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        }
+    }
+}
+
 publishing {
     publications {
-        create<MavenPublication>("bintray") {
-            groupId = artifactGroup
-            artifactId = artifactName
-            version = version
-            from(components["java"])
+        afterEvaluate {
+            create<MavenPublication>("mavenJava") {
+                groupId = artifactGroup
+                artifactId = artifactName
+                version = version
+                from(components["java"])
 
-            artifact(sourcesJar)
-            artifact(dokkaJar)
+                artifact(sourcesJar)
+                artifact(dokkaJar)
 
-            pom {
-                name.set(artifactName)
-                description.set(pomDesc)
-                url.set("https://github.com/breucode/envkeg")
-                licenses {
-                    license {
-                        name.set("MIT License")
-                        url.set("https://github.com/breucode/envkeg/blob/master/LICENSE")
+                pom {
+                    name.set(artifactName)
+                    description.set(pomDesc)
+                    url.set("https://github.com/breucode/envkeg")
+                    licenses {
+                        license {
+                            name.set("MIT License")
+                            url.set("https://github.com/breucode/envkeg/blob/master/LICENSE")
+                        }
                     }
-                }
-                developers {
-                    developer {
-                        id.set("breucode")
-                        name.set("Pascal Breuer")
-                        email.set("pbreuer@breuco.de")
+                    developers {
+                        developer {
+                            id.set("breucode")
+                            name.set("Pascal Breuer")
+                            email.set("pbreuer@breuco.de")
+                        }
                     }
-                }
-                scm {
-                    url.set("https://github.com/breucode/envkeg.git")
+                    scm {
+                        url.set("https://github.com/breucode/envkeg/tree/master")
+                        connection.set("scm:git:github.com:breucode/envkeg.git")
+                        developerConnection.set("scm:git:ssh://github.com:breucode/envkeg.git")
+                    }
                 }
             }
         }
     }
+}
 
-    repositories {
-        maven {
-            url = uri("https://api.bintray.com/maven/breucode/breucode/envkeg")
-            credentials {
-                username = System.getenv("BINTRAY_USER")
-                password = System.getenv("BINTRAY_KEY")
-            }
-        }
-    }
+signing {
+    val signingKey: String? by project
+    val signingPassword: String? by project
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign(publishing.publications)
 }

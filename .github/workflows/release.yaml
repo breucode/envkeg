@@ -14,7 +14,9 @@ jobs:
       - name: Check before publish
         run: ./gradlew check
       - name: Publish package
-        run: ./gradlew publish
+        run: ./gradlew build publishToSonatype closeAndReleaseSonatypeStagingRepository
         env:
-          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
-          BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
+          ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.OSSRH_USERNAME }}
+          ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.OSSRH_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.GPG_KEY_ARMORED }}
+          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
