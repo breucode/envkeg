@@ -44,7 +44,7 @@ After 0.5.0, envkeg moved to maven central.
 ```kotlin
 dependencies {
     ...
-    implementation("de.breuco:envkeg:0.5.0.1")
+    implementation("de.breuco:envkeg:0.5.1")
     ...
 }
 ```
@@ -58,7 +58,7 @@ dependencies {
         <dependency>
             <groupId>de.breuco</groupId>
             <artifactId>envkeg</artifactId>
-            <version>0.5.0.1</version>
+            <version>0.5.1</version>
         </dependency>
     </dependencies>
     ...
