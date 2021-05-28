@@ -3,6 +3,7 @@
   <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>ComplexMethod:Envkeg.kt$ public inline fun &lt;reified R> convertToType(value: String): R?</ID>
+    <ID>SwallowedException:Envkeg.kt$catch (e: Exception) { null }</ID>
     <ID>TooGenericExceptionCaught:Envkeg.kt$e: Exception</ID>
   </CurrentIssues>
 </SmellBaseline>

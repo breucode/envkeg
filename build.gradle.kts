@@ -3,11 +3,11 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.20"
-    id("com.diffplug.spotless") version "5.8.2"
-    id("io.gitlab.arturbosch.detekt") version "1.14.2"
-    id("com.github.ben-manes.versions") version "0.36.0"
-    id("org.jetbrains.dokka") version "1.4.20"
+    kotlin("jvm") version "1.5.10"
+    id("com.diffplug.spotless") version "5.12.5"
+    id("io.gitlab.arturbosch.detekt") version "1.17.1"
+    id("com.github.ben-manes.versions") version "0.39.0"
+    id("org.jetbrains.dokka") version "1.4.32"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     id("maven-publish")
     id("signing")
@@ -36,8 +36,8 @@ spotless {
 }
 
 detekt {
-    failFast = true
     buildUponDefaultConfig = true
+    allRules = true
     config = files("$projectDir/detekt.yaml")
     baseline = file("$projectDir/detekt-baseline.xml")
 }
@@ -70,18 +70,16 @@ tasks.wrapper {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
-    val kotestVersion = "4.3.1"
+    val kotestVersion = "4.6.0"
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion") {
         exclude("junit")
         exclude("org.junit.vintage")
     }
     testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
-    testImplementation("io.kotest:kotest-assertions-arrow-jvm:$kotestVersion")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
 
     testImplementation("io.mockk:mockk:1.10.0")
 }
