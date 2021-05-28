@@ -37,17 +37,14 @@ You can also define your own separator by calling for example `parseListFromEnv(
 ## Install dependency
 This dependency is available at jcenter.
 
+Note: Prior to version 0.5.0.1, envkeg is only available at jcenter.
+After 0.5.0, envkeg moved to maven central.
+
 ### Gradle
 ```kotlin
-repositories {
-    ...
-    jcenter()
-    ...
-}
-
 dependencies {
     ...
-    implementation("de.breuco:envkeg:0.5.0")
+    implementation("de.breuco:envkeg:0.5.0.1")
     ...
 }
 ```
@@ -57,22 +54,11 @@ dependencies {
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
     ...
-    <repositories>
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>bintray</name>
-            <url>https://jcenter.bintray.com</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>de.breuco</groupId>
             <artifactId>envkeg</artifactId>
-            <version>0.5.0</version>
+            <version>0.5.0.1</version>
         </dependency>
     </dependencies>
     ...
