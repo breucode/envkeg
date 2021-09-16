@@ -1,4 +1,5 @@
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/breucode/envkeg?style=flat-square)](https://github.com/breucode/envkeg/releases)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/breucode/envkeg?style=flat-square)](https://github.com/breucode/envkeg/releases/latest)
+[![Maven central release (latest)](https://img.shields.io/maven-central/v/de.breuco/envkeg?style=flat-square)](https://search.maven.org/artifact/de.breuco/envkeg)
 [![License](dependencies-badge.svg)](build.gradle.kts)
 [![License](https://img.shields.io/github/license/breucode/envkeg?style=flat-square)](LICENSE)
 
@@ -35,7 +36,7 @@ returns a `List<Int>` of `[1,2,3]`.
 You can also define your own separator by calling for example `parseListFromEnv("myOtherIntList", ';')`.
 
 ## Install dependency
-This dependency is available at jcenter.
+This dependency is available at [Maven Central](https://search.maven.org/artifact/de.breuco/envkeg).
 
 Note: Prior to version 0.5.0.1, envkeg is only available at jcenter.
 After 0.5.0, envkeg moved to maven central.
