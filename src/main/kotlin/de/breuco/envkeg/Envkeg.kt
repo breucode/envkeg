@@ -62,6 +62,7 @@ public inline fun <reified R : Any> parseListFromEnv(name: String, separator: Ch
  *
  * @return value as an R or null, if the target type is not supported or can't be parsed
  */
+@Suppress("SwallowedException", "ComplexMethod")
 public inline fun <reified R> convertToType(value: String): R? {
     return try {
         when (R::class) {
@@ -87,44 +88,5 @@ public inline fun <reified R> convertToType(value: String): R? {
         }
     } catch (e: Exception) {
         null
-    }
-}
-
-public class Envkeg private constructor() {
-    public companion object {
-        @Deprecated(
-            "Will be removed in one of the following minor releases",
-            ReplaceWith("parseFromEnv(name, default)")
-        )
-        public inline fun <reified R> getFromEnvTyped(name: String, default: R): R =
-            parseFromEnv(name, default)
-
-        @Deprecated(
-            "Will be removed in one of the following minor releases",
-            ReplaceWith("parseFromEnv(name)")
-        )
-        public inline fun <reified R> getFromEnvTyped(name: String): R? =
-            parseFromEnv(name)
-
-        @Deprecated(
-            "Will be removed in one of the following minor releases",
-            ReplaceWith("parseListFromEnv(name)")
-        )
-        public inline fun <reified R : Any> getFromEnvTypedList(name: String): List<R> =
-            parseListFromEnv(name)
-
-        @Deprecated(
-            "Will be removed in one of the following minor releases",
-            ReplaceWith("parseListFromEnv(name, separator)")
-        )
-        public inline fun <reified R : Any> getFromEnvTypedList(name: String, separator: Char): List<R> =
-            parseListFromEnv(name, separator)
-
-        @Deprecated(
-            "Will be removed in one of the following minor releases",
-            ReplaceWith("convertToType(value)", "de.breuco.envkeg")
-        )
-        public inline fun <reified R> convertToType(value: String): R? =
-            de.breuco.envkeg.convertToType(value)
     }
 }

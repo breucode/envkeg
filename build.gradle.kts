@@ -1,19 +1,19 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
-import io.gitlab.arturbosch.detekt.Detekt
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.10"
-    id("com.diffplug.spotless") version "5.12.5"
-    id("io.gitlab.arturbosch.detekt") version "1.17.1"
-    id("com.github.ben-manes.versions") version "0.39.0"
-    id("org.jetbrains.dokka") version "1.4.32"
+    kotlin("jvm") version "1.6.10"
+    id("com.diffplug.spotless") version "6.1.0"
+    id("io.gitlab.arturbosch.detekt") version "1.19.0"
+    id("com.github.ben-manes.versions") version "0.41.0"
+    id("org.jetbrains.dokka") version "1.6.10"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     id("maven-publish")
     id("signing")
 }
 
-val javaVersion = JavaVersion.VERSION_1_8
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+}
 
 val pomDesc = "A very small boilerplate-free kotlin library to read values " +
     "from environment variables in a typesafe way"
@@ -24,7 +24,7 @@ val artifactVersion = "0.5.1"
 version = artifactVersion
 
 spotless {
-    val ktlintVersion = "0.40.0"
+    val ktlintVersion = "0.43.2"
     kotlin {
         ktlint(ktlintVersion)
     }
@@ -39,13 +39,6 @@ detekt {
     buildUponDefaultConfig = true
     allRules = true
     config = files("$projectDir/detekt.yaml")
-    baseline = file("$projectDir/detekt-baseline.xml")
-}
-
-tasks {
-    withType<Detekt> {
-        this.jvmTarget = javaVersion.toString()
-    }
 }
 
 fun isNonStable(version: String): Boolean {
@@ -73,13 +66,13 @@ repositories {
 }
 
 dependencies {
-    val kotestVersion = "4.6.0"
+    val kotestVersion = "4.6.4"
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion") {
         exclude("junit")
         exclude("org.junit.vintage")
     }
     testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
 
     testImplementation("io.mockk:mockk:1.10.0")
 }
@@ -90,17 +83,6 @@ kotlin {
 
 tasks.test {
     useJUnitPlatform()
-}
-
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions.jvmTarget = javaVersion.toString()
-
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions.jvmTarget = javaVersion.toString()
-
-java {
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
 }
 
 val dokkaJar by tasks.creating(Jar::class) {
