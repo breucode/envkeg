@@ -24,7 +24,7 @@ val artifactVersion = "0.6.0"
 version = artifactVersion
 
 spotless {
-    val ktlintVersion = "0.43.2"
+    val ktlintVersion = "0.44.0"
     kotlin {
         ktlint(ktlintVersion)
     }
