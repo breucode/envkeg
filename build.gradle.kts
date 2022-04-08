@@ -66,7 +66,7 @@ repositories {
 }
 
 dependencies {
-    val kotestVersion = "4.6.4"
+    val kotestVersion = "5.2.2"
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion") {
         exclude("junit")
         exclude("org.junit.vintage")
