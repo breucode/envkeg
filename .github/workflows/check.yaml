@@ -15,6 +15,6 @@ jobs:
       - uses: gradle/wrapper-validation-action@v1
       - name: Unset JAVA_HOME
         run: unset JAVA_HOME
-      - uses: asdf-vm/actions/install@v1
+      - uses: asdf-vm/actions/install@v2
       - name: Check
         run: ./gradlew check
