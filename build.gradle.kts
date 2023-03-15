@@ -11,7 +11,7 @@ plugins {
   id("signing")
 }
 
-java { toolchain.languageVersion.set(JavaLanguageVersion.of(8)) }
+java { toolchain.languageVersion.set(JavaLanguageVersion.of(11)) }
 
 val pomDesc =
   "A very small boilerplate-free kotlin library to read values " +
