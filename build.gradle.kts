@@ -70,7 +70,7 @@ dependencies {
   testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.3")
 
-  testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+  testImplementation("org.mockito.kotlin:mockito-kotlin:5.0.0")
   testImplementation("org.mockito:mockito-inline:5.2.0")
   testImplementation("uk.org.webcompere:system-stubs-jupiter:2.0.2")
 }
