@@ -5,7 +5,7 @@ plugins {
   id("com.diffplug.spotless") version "6.22.0"
   id("io.gitlab.arturbosch.detekt") version "1.23.1"
   id("com.github.ben-manes.versions") version "0.49.0"
-  id("org.jetbrains.dokka") version "1.9.0"
+  id("org.jetbrains.dokka") version "1.9.10"
   id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
   id("maven-publish")
   id("signing")
