@@ -1,7 +1,7 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
-  kotlin("jvm") version "1.9.20"
+  kotlin("jvm") version "1.9.21"
   id("com.diffplug.spotless") version "6.22.0"
   id("io.gitlab.arturbosch.detekt") version "1.23.3"
   id("com.github.ben-manes.versions") version "0.50.0"
