@@ -62,7 +62,7 @@ tasks.wrapper { distributionType = Wrapper.DistributionType.ALL }
 repositories { mavenCentral() }
 
 dependencies {
-  val kotestVersion = "5.8.1"
+  val kotestVersion = "5.9.0"
   testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion") {
     exclude("junit")
     exclude("org.junit.vintage")
