@@ -68,7 +68,7 @@ dependencies {
     exclude("org.junit.vintage")
   }
   testImplementation("io.kotest:kotest-assertions-core-jvm:$kotestVersion")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.3")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.4")
 
   testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
   testImplementation("org.mockito:mockito-inline:5.2.0")
